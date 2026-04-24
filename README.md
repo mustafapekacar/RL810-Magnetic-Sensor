@@ -40,20 +40,3 @@ graph TD
 
     classDef note fill:#f9f9f9,stroke:#333,stroke-width:1px;
     class Transmitter_System,Receiver_System note;
-## 📊 Test Results & Correlation Analysis
-
-To validate the sensor's accuracy and behavior in real-world scenarios, we conducted three progressive tests. The graphs below demonstrate the correlation between physical distance (cm) and the amplified analog signal (0-1023 ADC).
-
-### Test 1: Theoretical Linear Approach
-In the initial testing phase, the coil was moved towards the magnetic source at a constant, robotic speed over 15 seconds. This established our baseline S-curve characteristic for the magnetic induction.
-![Test 1 Linear](Test_01_Linear_Approach.png)
-
-### Test 2: Human-Factor Simulation (Micro-Tremors)
-To simulate real-world handheld operation, Gaussian noise and sine-wave velocity fluctuations were introduced. This test proves the digital EMA filter's effectiveness in stabilizing the reading despite physical hand tremors.
-![Test 2 Tremor](Test_02_Human_Tremor_Simulation.png)
-
-### Test 3: Dynamic Accelerated Approach (Final Benchmark)
-In practical applications, approach velocity is rarely constant. This final 12-second test simulates a realistic scenario where the approach speed increases exponentially as the sensor gets closer to the target (from 7s onwards). The signal strength accurately follows this dynamic acceleration, saturating at exactly the hardware limit (1023 ADC) upon physical contact.
-![Test 3 Accelerated](Test_03_Accelerated_Dynamic_Approach.png)
-
-**Conclusion:** The RL810 coil, combined with the LM386 gain stage and dynamic baseline inversion, successfully provides a reliable proximity metric from 0 to 15 cm, demonstrating high resilience to EMI and physical movement anomalies.
