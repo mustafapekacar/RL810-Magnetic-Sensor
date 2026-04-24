@@ -1,5 +1,15 @@
-# RL810-Magnetic-Sensor
-Detecting 40kHz magnetic fields using an RL810 coil with 1.1V ADC reference, signal inversion, and digital filtering on Arduino.
+# 40kHz Magnetic Field Proximity Sensor System
+
+Detecting 40kHz magnetic fields using an RL810 coil with a 1.1V ADC reference, signal inversion, and digital filtering on an ATmega328P (Arduino Nano).
+
+## 📌 Project Overview
+This project focuses on the hardware and software implementation of an inductive proximity sensor. By generating a precise 40kHz magnetic field through a main wire and detecting it with an RL810 coil, the system can accurately estimate distance. It utilizes advanced signal processing techniques, including a hardware "Noise Gate" and software-based exponential moving average (EMA) filters, to achieve high sensitivity and eliminate EMI (Electromagnetic Interference).
+
+## ⚙️ System Architecture & Schematic
+
+Below is the complete block diagram of the transmitter and receiver systems:
+
+```mermaid
 graph TD
     %% Transmitter Section
     subgraph Verici_Sistem [Transmitter System - 40kHz Generator]
@@ -23,6 +33,5 @@ graph TD
         RC_Filter -- 0-1.1V Hassas DC Sinyal --> RX_MCU[Arduino Nano: Pin A0]
     end
 
-    %% Power Connections (Hidden for clarity, but noted)
     classDef note fill:#f9f9f9,stroke:#333,stroke-width:1px;
     class Verici_Sistem,Alici_Sistem note;
