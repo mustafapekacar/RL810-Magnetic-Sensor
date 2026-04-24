@@ -21,8 +21,8 @@ graph TD
     subgraph Receiver_System [Receiver System - Magnetic Proximity Sensor]
         MainWire -. Magnetic Field Induction .-> RL810[RL810 3-Pin Coil]
         
-        RL810 -- Pin 1 --> IN_PLUS(LM386 Module: IN+)
-        RL810 -- Pin 2 --> IN_MINUS(LM386 Module: IN-)
+        RL810 -- Pin 1 --> IN_PLUS(LM386 Module: IN)
+        RL810 -- Pin 2 --> IN_MINUS(LM386 Module: GND)
         
         IN_PLUS --- LM386_MOD[LM386 Audio Amplifier Module]
         IN_MINUS --- LM386_MOD
