@@ -12,26 +12,27 @@ Below is the complete block diagram of the transmitter and receiver systems:
 ```mermaid
 graph TD
     %% Transmitter Section
-    subgraph Verici_Sistem [Transmitter System - 40kHz Generator]
+    subgraph Transmitter_System [Transmitter System - 40kHz Generator]
         TX_MCU[Arduino Nano] -- Register PWM Pin 9 --> L298N[L298N Motor Driver]
-        L298N -- Güçlendirilmiş 40kHz AC --> AnaTel((Ana İletken Tel))
+        L298N -- Amplified 40kHz AC --> MainWire((Main Conductor Wire))
     end
 
     %% Receiver Section
-    subgraph Alici_Sistem [Receiver System - Magnetic Proximity Sensor]
-        AnaTel -. Manyetik Alan Endüksiyonu .-> RL810[RL810 3-Pin Bobin]
+    subgraph Receiver_System [Receiver System - Magnetic Proximity Sensor]
+        MainWire -. Magnetic Field Induction .-> RL810[RL810 3-Pin Coil]
         
-        RL810 -- Uç 1 --> IN_PLUS(LM386 Modül: IN+)
-        RL810 -- Uç 2 --> IN_MINUS(LM386 Modül: IN-)
+        RL810 -- Pin 1 --> IN_PLUS(LM386 Module: IN+)
+        RL810 -- Pin 2 --> IN_MINUS(LM386 Module: IN-)
         
         IN_PLUS --- LM386_MOD[LM386 Audio Amplifier Module]
         IN_MINUS --- LM386_MOD
         
-        LM386_MOD -- OUT+ --> SR5100[SR5100 Schottky Diyot]
+        LM386_MOD -- OUT+ --> SR5100[SR5100 Schottky Diode]
         
-        SR5100 -- Doğrultulmuş AC --> RC_Filter[Zarf Dedektörü / RC Filtre]
-        RC_Filter -- 0-1.1V Hassas DC Sinyal --> RX_MCU[Arduino Nano: Pin A0]
+        SR5100 -- Rectified AC --> RC_Filter[Envelope Detector / RC Filter]
+        RC_Filter -- 0-1.1V Sensitive DC Signal --> RX_MCU[Arduino Nano: Pin A0]
     end
 
+    %% Power Connections (Hidden for clarity, but noted)
     classDef note fill:#f9f9f9,stroke:#333,stroke-width:1px;
-    class Verici_Sistem,Alici_Sistem note;
+    class Transmitter_System,Receiver_System note;
