@@ -21,18 +21,22 @@ graph TD
     subgraph Receiver_System [Receiver System - Magnetic Proximity Sensor]
         MainWire -. Magnetic Field Induction .-> RL810[RL810 3-Pin Coil]
         
-        RL810 -- Pin 1 --> IN_PLUS(LM386 Module: header IN)
-        RL810 -- Pin 2 --> IN_MINUS(LM386 Module: header GND)
+        %% Power connections from Arduino to Module
+        RX_PWR[Arduino Nano: 5V & GND] -- VCC & GND --> LM386_MOD[LM386 Audio Amplifier Module]
         
-        IN_PLUS --- LM386_MOD[LM386 Audio Amplifier Module]
-        IN_MINUS --- LM386_MOD
+        %% Coil connections to Module Headers
+        RL810 -- Coil End 1 --> MOD_IN(Module Header: IN)
+        RL810 -- Coil End 2 --> MOD_GND(Module Header: GND)
         
-        LM386_MOD -- OUT+ --> SR5100[SR5100 Schottky Diode]
+        MOD_IN --- LM386_MOD
+        MOD_GND --- LM386_MOD
+        
+        %% Output connection from Module Terminal Block
+        LM386_MOD -- Terminal Socket: OUT --> SR5100[SR5100 Schottky Diode]
         
         SR5100 -- Rectified AC --> RC_Filter[Envelope Detector / RC Filter]
-        RC_Filter -- 0-1.1V Sensitive DC Signal --> RX_MCU[Arduino Nano: Pin A0]
+        RC_Filter -- Sensitive DC Signal --> RX_MCU[Arduino Nano: Pin A0]
     end
 
-    %% Power Connections (Hidden for clarity, but noted)
     classDef note fill:#f9f9f9,stroke:#333,stroke-width:1px;
     class Transmitter_System,Receiver_System note;
